@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-const UserDetails = ({ username }) => {
+const UserDetails = () => {
+  const { username } = useParams();
   const [userInfo, setUserInfo] = useState(null);
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);

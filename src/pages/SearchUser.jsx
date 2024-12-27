@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchUser = ({ onSearch }) => {
+const SearchUser = () => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -9,9 +9,8 @@ const SearchUser = ({ onSearch }) => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (username.trim()) {
-      onSearch(username);
+      navigate(`/user/${username}`);
     }
-    navigate(`/user/${username}`);
   };
 
   return (
