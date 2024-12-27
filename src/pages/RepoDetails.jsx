@@ -1,30 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const RepoDetails = () => {
   const { repoFullName } = useParams();
   const [repoDetails, setRepoDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+
+  const repoData = location.state?.repo;
 
   useEffect(() => {
-    const fetchRepoDetails = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          `https://api.github.com/repos/${repoFullName}`
-        );
-        const data = await response.json();
-        setRepoDetails(data);
-      } catch (error) {
-        console.error("Error fetching repository details:", error);
-      }
-      setLoading(false);
-    };
-
-    fetchRepoDetails();
+    setRepoDetails(repoData);
   }, [repoFullName]);
 
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Loading...</p>;
 
   return (
     <div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import Card from "../component/Card";
 
 const UserDetails = () => {
   const { username } = useParams();
@@ -40,26 +41,47 @@ const UserDetails = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className="flex ">
       {userInfo && (
-        <div>
-          <img src={userInfo.avatar_url} alt={userInfo.login} width="100" />
-          <h2>{userInfo.name || userInfo.login}</h2>
-          <p>{userInfo.bio}</p>
-          <p>{userInfo.location}</p>
+        <div className="flex flex-col  m-4 space-y-2">
+          <img
+            src={userInfo.avatar_url}
+            alt={userInfo.login}
+            width="100"
+            className="rounded"
+          />
+          <h2 className="font-medium text-xl">
+            {userInfo.name || userInfo.login}
+          </h2>
+          <p className="text-gray-500">{userInfo.bio}</p>
+          <p className="text-gray-400">
+            📍{userInfo.location || "Planet Earth"}
+          </p>
+          <div className="mt-6">
+            <Link
+              to={`/followers/${username}`}
+              className="text-blue-600 hover:text-blue-800 font-semibold"
+            >
+              View Followers
+            </Link>
+          </div>
         </div>
       )}
-      <h3>Repositories</h3>
-      <ul>
-        {repos.map((repo) => (
-          <li key={repo.id}>
-            <Link to={`/repo/${encodeURIComponent(repo.full_name)}`}>
-              {repo.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <Link to={`/followers/${username}`}>View Followers</Link>
+      <div className="flex flex-col m-4">
+        <h3 className="text-2xl font-bold mb-4">Repositories</h3>
+        <div className="grid grid-cols-4 space-x-4 space-y-2">
+          {repos.map((repo) => (
+            <Card
+              key={repo.id}
+              name={repo.name}
+              description={repo.description}
+              avatarUrl={repo.owner.avatar_url}
+              link={`/repo/${encodeURIComponent(repo.full_name)}`}
+              repoData={repo}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
