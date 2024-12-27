@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const UserDetails = ({ username }) => {
   const [userInfo, setUserInfo] = useState(null);
@@ -51,11 +52,13 @@ const UserDetails = ({ username }) => {
       <ul>
         {repos.map((repo) => (
           <li key={repo.id}>
-            <a href={`/repo/${repo.full_name}`}>{repo.name}</a>
+            <Link to={`/repo/${encodeURIComponent(repo.full_name)}`}>
+              {repo.name}
+            </Link>
           </li>
         ))}
       </ul>
-      <a href={`/followers/${username}`}>View Followers</a>
+      <Link to={`/followers/${username}`}>View Followers</Link>
     </div>
   );
 };

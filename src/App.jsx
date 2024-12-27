@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SearchUser from "./pages/SearchUser";
 import UserDetails from "./pages/UserDetails";
+import RepoDetails from "./pages/RepoDetails";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -19,6 +20,7 @@ function App() {
           path="/user/:username"
           element={<UserDetails username={username} />}
         />
+        <Route path="/repo/:repoFullName" element={<RepoDetails />} />
       </Routes>
     </Router>
   );
