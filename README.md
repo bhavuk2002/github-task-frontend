@@ -19,10 +19,12 @@ This is the frontend for the web application, built with **React**, **Vite**, **
 ## Installation
 
 1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/bhavuk2002/github-task-frontend.git
-   cd frontend
-   ```
+
+```bash
+git clone https://github.com/bhavuk2002/github-task-frontend.git
+cd frontend
+```
+
 2. **Install dependencies**: Make sure you have Node.js installed. Then, run the following command to install the necessary dependencies:
 
 ```bash
@@ -71,4 +73,4 @@ The application uses React Router to handle routing. Here are the available rout
 - Repo Details (`/repo/:repoFullName`): Displays detailed information about a repository.
 - Followers (`/followers/:username`): Displays the list of followers for a specific user.
 
-### Would love your review and feedback. Happy Coding.
+### Would love your reviews and feedback. Happy Coding.
