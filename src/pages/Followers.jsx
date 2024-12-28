@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const Followers = () => {
   const { username } = useParams();
@@ -29,6 +29,12 @@ const Followers = () => {
 
   return (
     <div className="flex flex-col rounded-lg max-w-md m-12 p-12">
+      <Link
+        to={`/`}
+        className=" absolute text-gray-300 hover:text-blue-300 font-semibold top-2 right-6"
+      >
+        Navigate to Home
+      </Link>
       <h3 className="text-3xl font-semibold text-gray-800 mb-4">Followers</h3>
       <ol className="space-y-2">
         {followers.map((follower, index) => (

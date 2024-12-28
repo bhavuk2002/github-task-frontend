@@ -13,7 +13,6 @@ const UserDetails = () => {
     const fetchUserData = async () => {
       setLoading(true);
       try {
-        console.log(username);
         const userResponse = await axios.post(
           `http://localhost:3000/api/users`,
           {
@@ -21,6 +20,7 @@ const UserDetails = () => {
           }
         );
         const userData = userResponse.data;
+        setUserInfo(userData);
 
         const reposResponse = await axios.get(
           `https://api.github.com/users/${username}/repos`
@@ -28,33 +28,20 @@ const UserDetails = () => {
 
         const reposData = reposResponse.data;
 
-        setUserInfo(userData);
         setRepos(reposData);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
-      setLoading(false);
     };
 
     fetchUserData();
-  }, [repos, username]);
+  }, [username]);
 
   if (loading) return <p>Loading...</p>;
 
   return (
     <div className="flex ">
-      {!loading && userInfo == null && (
-        <div className=" m-4 text-gray-600 font-semibold">
-          No User Found. Please enter a valid username.
-          <br />
-          <Link
-            to={`/`}
-            className="text-gray-300 hover:text-blue-300 font-semibold"
-          >
-            Navigate to Home
-          </Link>
-        </div>
-      )}
       {userInfo && (
         <div className="flex flex-col  m-4 space-y-2">
           <img
@@ -102,6 +89,18 @@ const UserDetails = () => {
               />
             ))}
           </div>
+        </div>
+      )}
+      {userInfo == null && loading === false && (
+        <div className=" m-4 text-gray-600 font-semibold">
+          No User Found. Please enter a valid username.
+          <br />
+          <Link
+            to={`/`}
+            className="text-gray-300 hover:text-blue-300 font-semibold"
+          >
+            Navigate to Home
+          </Link>
         </div>
       )}
     </div>
