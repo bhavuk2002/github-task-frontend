@@ -43,10 +43,16 @@ const UserDetails = () => {
 
   return (
     <div className="flex ">
-      {loading && userInfo === null && (
-        <div className=" m-4">
+      {!loading && userInfo == null && (
+        <div className=" m-4 text-gray-600 font-semibold">
           No User Found. Please enter a valid username.
-          <Link to={`/`}>Navigate to back Homepage</Link>
+          <br />
+          <Link
+            to={`/`}
+            className="text-gray-300 hover:text-blue-300 font-semibold"
+          >
+            Navigate to Home
+          </Link>
         </div>
       )}
       {userInfo && (
