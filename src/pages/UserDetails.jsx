@@ -20,38 +20,33 @@ const UserDetails = () => {
             username: username,
           }
         );
-
-        console.log(userResponse);
-
         const userData = userResponse.data;
 
         const reposResponse = await axios.get(
           `https://api.github.com/users/${username}/repos`
         );
 
-        console.log(reposResponse);
-
         const reposData = reposResponse.data;
 
         setUserInfo(userData);
         setRepos(reposData);
       } catch (error) {
-        console.log(repos);
         console.error("Error fetching user data:", error);
       }
       setLoading(false);
     };
 
     fetchUserData();
-  }, [username]);
+  }, [repos, username]);
 
   if (loading) return <p>Loading...</p>;
 
   return (
     <div className="flex ">
-      {userInfo === null && (
+      {loading && userInfo === null && (
         <div className=" m-4">
           No User Found. Please enter a valid username.
+          <Link to={`/`}>Navigate to back Homepage</Link>
         </div>
       )}
       {userInfo && (
@@ -75,6 +70,13 @@ const UserDetails = () => {
               className="text-blue-600 hover:text-blue-800 font-semibold"
             >
               View Followers
+            </Link>
+            <br />
+            <Link
+              to={`/`}
+              className="text-gray-300 hover:text-blue-300 font-semibold"
+            >
+              Navigate to Home
             </Link>
           </div>
         </div>

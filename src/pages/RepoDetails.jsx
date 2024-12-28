@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const RepoDetails = () => {
@@ -11,14 +11,18 @@ const RepoDetails = () => {
 
   useEffect(() => {
     setRepoDetails(repoData);
-    // console.log(repoData);
-    // console.log(repoDetails);
-  }, [repoFullName]);
+  }, [repoData, repoFullName]);
 
   // if (loading) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className="m-6 flex">
+      <Link
+        to={`/`}
+        className=" absolute text-gray-300 hover:text-blue-300 font-semibold top-2 right-6"
+      >
+        Navigate to Home
+      </Link>
       {repoDetails && (
         <div className="flex flex-row items-start m-24 p-12 space-y-4">
           {/* Owner and Verification */}
@@ -48,7 +52,7 @@ const RepoDetails = () => {
               <a
                 href={repoDetails.homepage}
                 target="_blank"
-                className="text-4xl font-bold"
+                className="text-4xl font-bold hover:text-blue-500"
               >
                 {repoDetails.name}
               </a>
