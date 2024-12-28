@@ -13,15 +13,21 @@ const UserDetails = () => {
     const fetchUserData = async () => {
       setLoading(true);
       try {
-        const userResponse = await axios.get(
-          `https://api.github.com/users/${username}`
+        console.log(username);
+        const userResponse = await axios.post(
+          `http://localhost:3000/api/users`,
+          {
+            username: username,
+          }
         );
 
         console.log(userResponse);
 
         const userData = userResponse.data;
 
-        const reposResponse = await axios.get(userData.repos_url);
+        const reposResponse = await axios.get(
+          `https://api.github.com/users/${username}/repos`
+        );
 
         console.log(reposResponse);
 
@@ -30,6 +36,7 @@ const UserDetails = () => {
         setUserInfo(userData);
         setRepos(reposData);
       } catch (error) {
+        console.log(repos);
         console.error("Error fetching user data:", error);
       }
       setLoading(false);
@@ -42,6 +49,11 @@ const UserDetails = () => {
 
   return (
     <div className="flex ">
+      {userInfo === null && (
+        <div className=" m-4">
+          No User Found. Please enter a valid username.
+        </div>
+      )}
       {userInfo && (
         <div className="flex flex-col  m-4 space-y-2">
           <img
@@ -67,21 +79,23 @@ const UserDetails = () => {
           </div>
         </div>
       )}
-      <div className="flex flex-col m-4">
-        <h3 className="text-2xl font-bold mb-4">Repositories</h3>
-        <div className="grid grid-cols-4 space-x-4 space-y-2">
-          {repos.map((repo) => (
-            <Card
-              key={repo.id}
-              name={repo.name}
-              description={repo.description}
-              avatarUrl={repo.owner.avatar_url}
-              link={`/repo/${encodeURIComponent(repo.full_name)}`}
-              repoData={repo}
-            />
-          ))}
+      {repos.length !== 0 && (
+        <div className="flex flex-col m-4">
+          <h3 className="text-2xl font-bold mb-4">Repositories</h3>
+          <div className="grid grid-cols-4 space-x-4 space-y-2">
+            {repos.map((repo) => (
+              <Card
+                key={repo.id}
+                name={repo.name}
+                description={repo.description}
+                avatarUrl={repo.owner.avatar_url}
+                link={`/repo/${encodeURIComponent(repo.full_name)}`}
+                repoData={repo}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
