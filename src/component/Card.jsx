@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Card = ({ name, description, avatarUrl, link, repoData }) => {
   return (
@@ -16,12 +17,20 @@ const Card = ({ name, description, avatarUrl, link, repoData }) => {
         >
           {name}
         </Link>
-        <p className="text-sm text-gray-500 mb-2">
+        <p className="text-sm text-gray-500 mb-2 overflow-hidden text-ellipsis line-clamp-2">
           {description || "No description available"}
         </p>
       </div>
     </div>
   );
+};
+
+Card.propTypes = {
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  avatarUrl: PropTypes.string,
+  link: PropTypes.string,
+  repoData: PropTypes.object.isRequired,
 };
 
 export default Card;
