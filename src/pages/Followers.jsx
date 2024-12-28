@@ -28,7 +28,7 @@ const Followers = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="flex flex-col rounded-lg p-4 max-w-md m-12 p-12">
+    <div className="flex flex-col rounded-lg max-w-md m-12 p-12">
       <h3 className="text-3xl font-semibold text-gray-800 mb-4">Followers</h3>
       <ol className="space-y-2">
         {followers.map((follower, index) => (
